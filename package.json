@@ -1,6 +1,6 @@
 {
   "name": "js-ubill",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "JavaScript/TypeScript client for the Ubill API",
   "main": "index.js",
   "scripts": {

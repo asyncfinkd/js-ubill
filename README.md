@@ -134,6 +134,8 @@ Retrieves a specific brand name by ID.
 getBalance(): Promise<BalanceResponse>
 ```
 
+Retrieves the current account balance.
+
 ## License
 
 MIT
