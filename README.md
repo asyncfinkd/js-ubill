@@ -2,6 +2,8 @@ js-ubill
 
 A JavaScript/TypeScript client for the Ubill API that simplifies SMS messaging operations.
 
+![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg) [![npm version](https://img.shields.io/npm/v/js-ubill.svg?style=flat)](https://www.npmjs.com/package/js-ubill)
+
 ## Installation
 
 ```bash
