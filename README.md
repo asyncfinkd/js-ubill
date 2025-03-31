@@ -135,11 +135,3 @@ getBalance(): Promise<BalanceResponse>
 ```
 
 Retrieves the current account balance.
-
-## License
-
-MIT
-
-## Author
-
-Nika Shamiladze
