@@ -1,4 +1,8 @@
 "use strict";
+/**
+ * JavaScript/TypeScript client for the Ubill API
+ * @module js-ubill
+ */
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -18,3 +22,4 @@ exports.UbillAPI = void 0;
 var UbillAPI_1 = require("./UbillAPI");
 Object.defineProperty(exports, "UbillAPI", { enumerable: true, get: function () { return UbillAPI_1.UbillAPI; } });
 __exportStar(require("./types"), exports);
+//# sourceMappingURL=index.js.map
