@@ -1,4 +1,4 @@
-import axios, { AxiosInstance } from "axios";
+import axios, { AxiosInstance, AxiosResponse } from "axios";
 import {
   SendSMSResponse,
   BrandNameResponse,
@@ -48,18 +48,11 @@ export class UbillAPI {
    * @returns Promise resolving to the API response
    * @throws Error if the API request fails
    */
-  async sendSMS(request: SendSMSRequest): Promise<SendSMSResponse> {
-    try {
-      const response = await this.client.post<SendSMSResponse>(
-        "/sms/send",
-        request
-      );
-
-      return response.data;
-    } catch (error) {
-      this.handleError("Error sending SMS", error);
-    }
-  }
+  sendSMS = async (request: SendSMSRequest): Promise<SendSMSResponse> =>
+    await this.request(
+      () => this.client.post<SendSMSResponse>("/sms/send", request),
+      "Error sending SMS"
+    );
 
   /**
    * Retrieves all available brand names
@@ -67,14 +60,10 @@ export class UbillAPI {
    * @throws Error if the API request fails
    */
   async getAllBrandNames(): Promise<BrandNameResponse> {
-    try {
-      const response = await this.client.get<BrandNameResponse>(
-        "/sms/brandNames"
-      );
-      return response.data;
-    } catch (error) {
-      this.handleError("Error getting all brand names", error);
-    }
+    return await this.request<BrandNameResponse>(
+      () => this.client.get<BrandNameResponse>("/sms/brandNames"),
+      "Error getting all brand names"
+    );
   }
 
   /**
@@ -100,12 +89,22 @@ export class UbillAPI {
    * @returns Promise resolving to the balance response
    * @throws Error if the API request fails
    */
-  async getBalance(): Promise<BalanceResponse> {
+  getBalance = async (): Promise<BalanceResponse> =>
+    await this.request<BalanceResponse>(
+      () => this.client.get<BalanceResponse>("/sms/balance"),
+      "Error getting balance"
+    );
+
+  private async request<T>(
+    action: () => Promise<AxiosResponse<T>>,
+    errorMsg: string
+  ): Promise<T> {
     try {
-      const { data } = await this.client.get<BalanceResponse>("/sms/balance");
-      return data;
+      const response = await action();
+
+      return response.data;
     } catch (error) {
-      this.handleError("Error getting balance", error);
+      this.handleError(errorMsg, error);
     }
   }
 
