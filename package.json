@@ -1,0 +1,29 @@
+{
+  "name": "js-ubill",
+  "version": "1.0.0",
+  "description": "JavaScript/TypeScript client for the Ubill API",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "ubill",
+    "sms",
+    "api",
+    "client"
+  ],
+  "author": "Nika Shamiladze",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^18.15.11",
+    "@typescript-eslint/eslint-plugin": "^5.57.1",
+    "@typescript-eslint/parser": "^5.57.1",
+    "eslint": "^8.37.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "axios": "^1.8.4"
+  }
+}
