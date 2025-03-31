@@ -7,8 +7,6 @@ yarn-debug.log
 .pnp.js
 
 # Build outputs
-dist
-build
 out
 .next
 
