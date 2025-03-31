@@ -25,3 +25,10 @@ export interface UbillAPIOptions {
   apiKey: string;
   baseUrl?: string;
 }
+
+export interface SendSMSRequest {
+  brandID: number;
+  numbers: number[];
+  text: string;
+  stopList?: boolean;
+}

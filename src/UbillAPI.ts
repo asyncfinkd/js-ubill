@@ -5,6 +5,7 @@ import {
   BrandName,
   BalanceResponse,
   UbillAPIOptions,
+  SendSMSRequest,
 } from "./types";
 
 export class UbillAPI {
@@ -27,19 +28,12 @@ export class UbillAPI {
     });
   }
 
-  async sendSMS(
-    brandID: number,
-    numbers: number[],
-    text: string,
-    stopList: boolean = false
-  ): Promise<SendSMSResponse> {
+  async sendSMS(request: SendSMSRequest): Promise<SendSMSResponse> {
     try {
-      const response = await this.client.post<SendSMSResponse>("/sms/send", {
-        brandID,
-        numbers,
-        text,
-        stopList,
-      });
+      const response = await this.client.post<SendSMSResponse>(
+        "/sms/send",
+        request
+      );
 
       return response.data;
     } catch (error) {

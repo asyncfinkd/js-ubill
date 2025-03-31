@@ -36,12 +36,12 @@ const ubill = new UbillAPI({
 ```typescript
 async function sendMessage() {
   try {
-    const response = await ubill.sendSMS(
-      1, // brandID
-      [99555555555, 995555444111], // recipient numbers
-      "Hello from Ubill!", // message text
-      false // optional: stopList flag
-    );
+    const response = await ubill.sendSMS({
+      brandID: 1,
+      numbers: [99555555555, 995555444111],
+      message: "Hello from Ubill!",
+      stopList: false, // optional: stopList flag
+    });
 
     console.log("Message sent:", response);
   } catch (error) {
@@ -109,7 +109,7 @@ new UbillAPI(options: UbillAPIOptions)
 ##### sendSMS
 
 ```typescript
-sendSMS(brandID: number, numbers: number[], text: string, stopList?: boolean): Promise<SendSMSResponse>
+sendSMS(request: SendSMSRequest): Promise<SendSMSResponse>
 ```
 
 Sends an SMS message to one or more recipients.
