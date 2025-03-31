@@ -17,6 +17,23 @@ class UbillAPI {
      * @param options.baseUrl - Optional custom API base URL (defaults to "https://api.ubill.dev/v1")
      */
     constructor(options) {
+        /**
+         * Sends an SMS message to one or more recipients
+         * @param request - The SMS request details
+         * @param request.brandID - The ID of the brand to use as sender
+         * @param request.numbers - Array of recipient phone numbers
+         * @param request.text - The message content to send
+         * @param request.stopList - Optional flag to check numbers against stop list
+         * @returns Promise resolving to the API response
+         * @throws Error if the API request fails
+         */
+        this.sendSMS = async (request) => await this.request(() => this.client.post("/sms/send", request), "Error sending SMS");
+        /**
+         * Retrieves the current account balance
+         * @returns Promise resolving to the balance response
+         * @throws Error if the API request fails
+         */
+        this.getBalance = async () => await this.request(() => this.client.get("/sms/balance"), "Error getting balance");
         this.apiKey = options.apiKey;
         this.client = axios_1.default.create({
             baseURL: options.baseUrl || "https://api.ubill.dev/v1",
@@ -30,37 +47,12 @@ class UbillAPI {
         });
     }
     /**
-     * Sends an SMS message to one or more recipients
-     * @param request - The SMS request details
-     * @param request.brandID - The ID of the brand to use as sender
-     * @param request.numbers - Array of recipient phone numbers
-     * @param request.text - The message content to send
-     * @param request.stopList - Optional flag to check numbers against stop list
-     * @returns Promise resolving to the API response
-     * @throws Error if the API request fails
-     */
-    async sendSMS(request) {
-        try {
-            const response = await this.client.post("/sms/send", request);
-            return response.data;
-        }
-        catch (error) {
-            this.handleError("Error sending SMS", error);
-        }
-    }
-    /**
      * Retrieves all available brand names
      * @returns Promise resolving to the brand names response
      * @throws Error if the API request fails
      */
     async getAllBrandNames() {
-        try {
-            const response = await this.client.get("/sms/brandNames");
-            return response.data;
-        }
-        catch (error) {
-            this.handleError("Error getting all brand names", error);
-        }
+        return await this.request(() => this.client.get("/sms/brandNames"), "Error getting all brand names");
     }
     /**
      * Retrieves a specific brand name by ID
@@ -69,27 +61,17 @@ class UbillAPI {
      * @throws Error if the API request fails
      */
     async getBrandName(id) {
-        try {
-            const { data } = await this.client.get("/sms/brandNames");
-            const brand = data.brands.find((value) => value.id === id);
-            return brand || null;
-        }
-        catch (error) {
-            this.handleError("Error getting brand name", error);
-        }
+        const response = await this.request(() => this.client.get("/sms/brandNames"), "Error getting brand name");
+        const brand = response.brands.find((value) => value.id === id);
+        return brand || null;
     }
-    /**
-     * Retrieves the current account balance
-     * @returns Promise resolving to the balance response
-     * @throws Error if the API request fails
-     */
-    async getBalance() {
+    async request(action, errorMsg) {
         try {
-            const { data } = await this.client.get("/sms/balance");
-            return data;
+            const response = await action();
+            return response.data;
         }
         catch (error) {
-            this.handleError("Error getting balance", error);
+            this.handleError(errorMsg, error);
         }
     }
     /**

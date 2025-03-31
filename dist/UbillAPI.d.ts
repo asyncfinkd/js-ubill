@@ -23,7 +23,7 @@ export declare class UbillAPI {
      * @returns Promise resolving to the API response
      * @throws Error if the API request fails
      */
-    sendSMS(request: SendSMSRequest): Promise<SendSMSResponse>;
+    sendSMS: (request: SendSMSRequest) => Promise<SendSMSResponse>;
     /**
      * Retrieves all available brand names
      * @returns Promise resolving to the brand names response
@@ -42,7 +42,8 @@ export declare class UbillAPI {
      * @returns Promise resolving to the balance response
      * @throws Error if the API request fails
      */
-    getBalance(): Promise<BalanceResponse>;
+    getBalance: () => Promise<BalanceResponse>;
+    private request;
     /**
      * Handles and transforms errors from API requests
      * @param message - The error message prefix
