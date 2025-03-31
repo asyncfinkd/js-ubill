@@ -19,14 +19,9 @@ class UbillAPI {
             return config;
         });
     }
-    async sendSMS(brandID, numbers, text, stopList = false) {
+    async sendSMS(request) {
         try {
-            const response = await this.client.post("/sms/send", {
-                brandID,
-                numbers,
-                text,
-                stopList,
-            });
+            const response = await this.client.post("/sms/send", request);
             return response.data;
         }
         catch (error) {

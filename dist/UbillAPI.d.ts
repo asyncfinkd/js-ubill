@@ -1,9 +1,9 @@
-import { SendSMSResponse, BrandNameResponse, BrandName, BalanceResponse, UbillAPIOptions } from "./types";
+import { SendSMSResponse, BrandNameResponse, BrandName, BalanceResponse, UbillAPIOptions, SendSMSRequest } from "./types";
 export declare class UbillAPI {
     private client;
     private apiKey;
     constructor(options: UbillAPIOptions);
-    sendSMS(brandID: number, numbers: number[], text: string, stopList?: boolean): Promise<SendSMSResponse>;
+    sendSMS(request: SendSMSRequest): Promise<SendSMSResponse>;
     getAllBrandNames(): Promise<BrandNameResponse>;
     getBrandName(id: string): Promise<BrandName | null>;
     getBalance(): Promise<BalanceResponse>;
