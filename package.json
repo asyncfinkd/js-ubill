@@ -1,11 +1,12 @@
 {
   "name": "js-ubill",
-  "version": "1.0.5",
+  "version": "1.0.7",
   "description": "JavaScript/TypeScript client for the Ubill API",
   "main": "dist/index.js",
+  "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc",
+    "build": "tsup",
     "prepublishOnly": "npm run build"
   },
   "keywords": [
@@ -14,10 +15,14 @@
     "api",
     "client"
   ],
+  "files": [
+    "dist"
+  ],
   "author": "Nika Shamiladze",
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^18.15.11",
+    "tsup": "^8.4.0",
     "typescript": "^5.8.2"
   },
   "dependencies": {
