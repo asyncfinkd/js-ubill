@@ -73,15 +73,13 @@ export class UbillAPI {
    * @throws Error if the API request fails
    */
   async getBrandName(id: string): Promise<BrandName | null> {
-    try {
-      const { data } = await this.client.get<BrandNameResponse>(
-        "/sms/brandNames"
-      );
-      const brand = data.brands.find((value) => value.id === id);
-      return brand || null;
-    } catch (error) {
-      this.handleError("Error getting brand name", error);
-    }
+    const response = await this.request<BrandNameResponse>(
+      () => this.client.get<BrandNameResponse>("/sms/brandNames"),
+      "Error getting brand name"
+    );
+
+    const brand = response.brands.find((value) => value.id === id);
+    return brand || null;
   }
 
   /**
